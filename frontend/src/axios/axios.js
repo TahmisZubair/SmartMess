@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000/api", // Your backend base URL
+  baseURL: "https://smart-mess-backend-try2.vercel.app/api", // Your backend base URL
   withCredentials: true, // Important for sending cookies
 });
 

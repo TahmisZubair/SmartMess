@@ -21,7 +21,7 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get('https://smart-mess-backend.vercel.app/api/user/stats', {
+      const res = await axios.get('https://smart-mess-backend-try2.vercel.app/api/user/stats', {
         withCredentials: true,
       });
       setStats(res.data);
@@ -38,7 +38,7 @@ const AdminDashboard = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        'https://smart-mess-backend.vercel.app/api/user/logout',
+        'https://smart-mess-backend-try2.vercel.app/api/user/logout',
         {},
         { withCredentials: true }
       );
@@ -57,7 +57,7 @@ const AdminDashboard = () => {
       today.setUTCHours(0, 0, 0, 0); // Normalize to UTC start of day
 
       const res = await axios.post(
-        'https://smart-mess-backend.vercel.app/api/attendance/mark-all',
+        'https://smart-mess-backend-try2.vercel.app/api/attendance/mark-all',
         { date: today },
         { withCredentials: true }
       );

@@ -31,7 +31,7 @@ const AdminComplaint = () => {
   const markResolved = async (id) => {
     try {
       await axios.put(
-        `https://smart-mess-backend.vercel.app/api/complaint/resolve/${id}`,
+        `https://smart-mess-backend-try2.vercel.app/api/complaint/resolve/${id}`,
         {},
         { withCredentials: true }
       );
