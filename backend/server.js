@@ -9,9 +9,12 @@ const cookieParser = require('cookie-parser')
 const app = express();
 app.use(express.json());
 app.use(cookieParser()); // To parse cookies
+const allowedOrigins = ["https://smart-mess-862u.vercel.app"];
+
 app.use(cors({
-  origin: "https://smart-mess-862u.vercel.app", 
-  credentials: true                             
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true // if you're using cookies or authorization headers
 }));
 
 
