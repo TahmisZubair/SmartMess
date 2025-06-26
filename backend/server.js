@@ -9,7 +9,11 @@ const cookieParser = require('cookie-parser')
 const app = express();
 app.use(express.json());
 app.use(cookieParser()); // To parse cookies
-app.use(cors());
+app.use(cors({
+  origin: "https://smart-mess-862u.vercel.app", 
+  credentials: true                             
+}));
+
 
 
 const authRoutes = require("./routes/auth")
