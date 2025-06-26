@@ -3,43 +3,44 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const connectDB = require('./config/database');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser')
+
 
 const app = express();
 app.use(express.json());
-app.use(cookieParser());
-
-const allowedOrigins = ["https://smart-mess-862u.vercel.app"];
-
+app.use(cookieParser()); // To parse cookies
 app.use(cors({
-  origin: allowedOrigins,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  credentials: true
+  origin: "https://smart-mess-862u.vercel.app", 
+  credentials: true                             
 }));
 
-// Optional fallback headers if CORS still fails
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://smart-mess-862u.vercel.app");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
 
-// Connect DB
+
+const authRoutes = require("./routes/auth")
+const menuRoutes = require("./routes/menu")
+const attendanceRoutes = require("./routes/attendance")
+const paymentRoutes = require("./routes/payment")
+const complaintRoutes = require("./routes/complaint")
+const noticeRoutes = require("./routes/notice")
+const rebateRoutes = require("./routes/rebate")
+
+const PORT = process.env.PORT || 3000;
+
+// CONNECT TO MONGODB
 connectDB();
 
-// Routes
 app.get("/", (req, res) => {
-  res.send("Welcome to SmartMess API");
-});
+    res.send("Welcome to SmartMess API");
+})
 
-app.use("/api/user", require("./routes/auth"));
-app.use("/api/menu", require("./routes/menu"));
-app.use("/api/attendance", require("./routes/attendance"));
-app.use("/api/payments", require("./routes/payment"));
-app.use("/api/complaint", require("./routes/complaint"));
-app.use("/api/notice", require("./routes/notice"));
-app.use("/api/rebate", require("./routes/rebate"));
+app.use("/api/user", authRoutes);
+app.use("/api/menu", menuRoutes);
+app.use("/api/attendance", attendanceRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/complaint", complaintRoutes);
+app.use("/api/notice", noticeRoutes);
+app.use("/api/rebate", rebateRoutes);
 
-// 🔥 EXPORT app for Vercel — DO NOT call app.listen
-module.exports = app;
+app.listen(PORT, () => {
+    console.log(`Server is running on at http://localhost:${PORT}`);
+})
